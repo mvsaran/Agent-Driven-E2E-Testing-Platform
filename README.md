@@ -362,3 +362,359 @@ If you want to apply this Agent-Driven Test Harness architecture to a completely
 
 5. **Build the Orchestrator Script:** 
    Create a Python or Node.js orchestrator (using frameworks like AutoGen, LangChain, or simple API calls) that sequentially triggers your LLMs, passing the JSON artifacts between them, and looping back to the Explorer Agent whenever the Debugger returns `REQUIRES_REEXPLORATION`.
+
+
+# 🏛️ Architecture Overview
+
+The platform follows a **Harness Engineering** model where AI agents operate inside a controlled environment rather than acting independently.
+
+```text
+                    ┌──────────────────┐
+                    │ Human Request    │
+                    └─────────┬────────┘
+                              │
+                              ▼
+                    ┌──────────────────┐
+                    │ Orchestrator     │
+                    │ Workflow Engine  │
+                    └─────────┬────────┘
+                              │
+         ┌────────────────────┼────────────────────┐
+         ▼                    ▼                    ▼
+ ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+ │ Explorer    │ --> │ Builder     │ --> │ Runner      │
+ │ Agent       │     │ Agent       │     │ Agent       │
+ └─────────────┘     └─────────────┘     └──────┬──────┘
+                                                 │
+                                                 ▼
+                                        ┌─────────────┐
+                                        │ Debugger    │
+                                        │ Agent       │
+                                        └──────┬──────┘
+                                               │
+                             ┌─────────────────┴──────────────┐
+                             ▼                                ▼
+                   Re-run Fixed Test              Re-Explore Application
+```
+
+---
+
+# 🎯 Design Principles
+
+This platform is built around five core engineering principles:
+
+### 1️⃣ Evidence Over Assumptions
+
+Every generated locator, URL, assertion, and test step must originate from verified browser evidence.
+
+### 2️⃣ Reliability Over Autonomy
+
+Agents are intentionally constrained to prevent incorrect automation generation.
+
+### 3️⃣ Structured Communication
+
+Agents communicate exclusively through JSON artifacts.
+
+### 4️⃣ Explainable Decisions
+
+Every generated test step can be traced back to its originating evidence.
+
+### 5️⃣ Human Escalation
+
+After repeated failures, the workflow escalates to engineers instead of continuing blindly.
+
+---
+
+# 🚀 Quick Start
+
+## Prerequisites
+
+* Node.js 20+
+* npm 10+
+* Playwright
+* Git
+
+## Installation
+
+```bash
+git clone <repository-url>
+
+cd HarnessDrivenAutomation
+
+npm install
+
+npx playwright install --with-deps
+```
+
+## Execute All Tests
+
+```bash
+npx playwright test
+```
+
+## Execute Single Test
+
+```bash
+npx playwright test playwright/tests/ecommerce.spec.ts
+```
+
+## Open HTML Report
+
+```bash
+npx playwright show-report
+```
+
+---
+
+# 🔧 Technology Stack
+
+| Category          | Technology                   |
+| ----------------- | ---------------------------- |
+| UI Automation     | Playwright                   |
+| Language          | TypeScript                   |
+| Architecture      | Agent-Based                  |
+| Validation        | JSON Schema                  |
+| CI/CD             | GitHub Actions               |
+| Reporting         | Playwright HTML Reports      |
+| Debugging         | Trace Viewer                 |
+| Design Pattern    | Page Object Model            |
+| Orchestration     | LangChain / AutoGen / Custom |
+| Reliability Model | Harness Engineering          |
+
+---
+
+# 📋 End-to-End Lifecycle
+
+A complete automation request passes through multiple controlled stages.
+
+### Step 1 — Exploration
+
+```text
+URL
+ ↓
+DOM Discovery
+ ↓
+Selector Validation
+ ↓
+Exploration Report
+```
+
+Output:
+
+```json
+{
+  "scope": "Add product to cart",
+  "urls": [],
+  "selectors": [],
+  "networkCalls": []
+}
+```
+
+---
+
+### Step 2 — Build
+
+```text
+Exploration Report
+ ↓
+Page Objects
+ ↓
+Playwright Tests
+ ↓
+Build Report
+```
+
+---
+
+### Step 3 — Execution
+
+```text
+Playwright Tests
+ ↓
+Execution
+ ↓
+Screenshots
+ ↓
+Videos
+ ↓
+Traces
+ ↓
+Execution Report
+```
+
+---
+
+### Step 4 — Debugging
+
+```text
+Execution Report
+ ↓
+Failure Analysis
+ ↓
+Classification
+ ↓
+Patch or Re-Explore
+```
+
+---
+
+# 🔐 Selector Validation Strategy
+
+The framework enforces strict locator quality standards.
+
+### Allowed Order
+
+```text
+1. data-testid
+2. data-test
+3. data-cy
+4. data-*
+5. role selectors
+6. aria-label
+7. labels
+8. visible text
+```
+
+### Forbidden Selectors
+
+```text
+❌ XPath
+
+❌ nth-child
+
+❌ Positional Selectors
+
+❌ Generated IDs
+
+❌ CSS Classes
+
+❌ Dynamic Styling Hooks
+```
+
+Any violation immediately fails execution.
+
+---
+
+# 📊 Sample Failure Classification
+
+| Failure Type        | Action                 |
+| ------------------- | ---------------------- |
+| SELECTOR_FAILURE    | Re-explore DOM         |
+| ASSERTION_FAILURE   | Review requirements    |
+| NETWORK_FAILURE     | Validate API response  |
+| AUTH_FAILURE        | Re-authenticate        |
+| DATA_FAILURE        | Verify test data       |
+| ENVIRONMENT_FAILURE | Retry environment      |
+| APPLICATION_BUG     | Escalate to developers |
+
+---
+
+# 📈 Benefits for QA Teams
+
+### Faster Test Creation
+
+Generate Playwright tests directly from discovered evidence.
+
+### Reduced Flakiness
+
+Strict selector policies eliminate fragile locators.
+
+### Improved Traceability
+
+Every automation step has a source of truth.
+
+### Better Debugging
+
+Failure classification accelerates root-cause analysis.
+
+### Consistent Standards
+
+All agents follow the same engineering policies.
+
+### Scalable Automation
+
+Supports large-scale automation generation through orchestration.
+
+---
+
+# 🔄 CI/CD Integration
+
+The platform integrates seamlessly with GitHub Actions.
+
+```text
+Push
+ ↓
+Build
+ ↓
+Playwright Execution
+ ↓
+Artifacts Upload
+ ↓
+HTML Reports
+ ↓
+Trace Files
+ ↓
+Failure Analysis
+```
+
+Artifacts collected:
+
+✅ Screenshots
+
+✅ Videos
+
+✅ Traces
+
+✅ Execution Reports
+
+✅ Debug Reports
+
+---
+
+# 🗺️ Future Roadmap
+
+### Phase 1 (Current)
+
+* Explorer Agent
+* Builder Agent
+* Runner Agent
+* Debugger Agent
+
+### Phase 2
+
+* API Contract Validation Agent
+* OpenAPI Validation
+* AJV Schema Validation
+
+### Phase 3
+
+* Self-Healing Recommendations
+* Risk-Based Test Prioritization
+* Coverage Analysis Agent
+
+### Phase 4
+
+* Multi-Agent Parallel Execution
+* Cross-Browser Optimization
+* AI-Powered Test Impact Analysis
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+Before submitting changes:
+
+1. Follow the selector policy.
+2. Preserve artifact-based communication.
+3. Do not introduce hallucinated locator generation.
+4. Update schemas when introducing new artifacts.
+5. Ensure all Playwright tests pass.
+
+---
+
+# 📜 License
+
+This project is intended as a reference implementation of Harness Engineering principles applied to modern AI-assisted test automation using Playwright.
+
