@@ -1,0 +1,8 @@
+{
+  "failureId": "E-Commerce Add to Cart Flow › User can search for a MacBook and add it to cart",
+  "classification": "SELECTOR_FAILURE",
+  "rootCause": "The locator getByRole('link', { name: 'Checkout' }) timed out on the cart page. Trace logs indicate the DOM rendered successfully but the element with the exact accessible name 'Checkout' no longer exists. The element was likely renamed to 'Secure Checkout' or the DOM structure changed.",
+  "proposedFix": "Cannot safely patch. The exact DOM state must be verified to prevent hallucinating the new button selector.",
+  "actionRequired": "REQUIRES_REEXPLORATION",
+  "retryCount": 1
+}

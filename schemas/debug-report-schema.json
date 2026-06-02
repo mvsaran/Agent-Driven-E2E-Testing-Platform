@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "failureId": { "type": "string" },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "SELECTOR_FAILURE",
+        "ASSERTION_FAILURE",
+        "NETWORK_FAILURE",
+        "AUTH_FAILURE",
+        "DATA_FAILURE",
+        "APPLICATION_BUG",
+        "ENVIRONMENT_FAILURE"
+      ]
+    },
+    "rootCause": { "type": "string" },
+    "proposedFix": { "type": "string" },
+    "actionRequired": {
+      "type": "string",
+      "enum": ["REQUIRES_REEXPLORATION", "ESCALATE_TO_HUMAN", "APPLY_PATCH"]
+    },
+    "retryCount": { "type": "integer" }
+  },
+  "required": ["failureId", "classification", "rootCause", "proposedFix", "actionRequired", "retryCount"]
+}

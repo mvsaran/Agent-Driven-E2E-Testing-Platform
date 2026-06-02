@@ -1,0 +1,16 @@
+{
+  "status": "FAIL",
+  "passed": [],
+  "failed": [
+    "E-Commerce Add to Cart Flow › User can search for a MacBook and add it to cart"
+  ],
+  "screenshots": [
+    "artifacts/execution-reports/screenshots/User-can-search-for-a-MacBook-and-add-it-to-cart-1.png"
+  ],
+  "traceFiles": [
+    "artifacts/execution-reports/traces/User-can-search-for-a-MacBook-and-add-it-to-cart-1.zip"
+  ],
+  "logs": [
+    "Error: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('link', { name: 'Checkout' })\n  - locator resolved to 0 elements\n    at CartPage.proceedToCheckout (cart-page.ts:18:32)"
+  ]
+}

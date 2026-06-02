@@ -1,0 +1,18 @@
+{
+  "generatedFiles": [
+    "playwright/pages/home-page.ts",
+    "playwright/pages/product-page.ts",
+    "playwright/pages/cart-page.ts",
+    "playwright/tests/ecommerce.spec.ts"
+  ],
+  "coverage": [
+    "Navigate to Homepage -> Type 'macbook' in search -> Click Search -> Click 'MacBook' product -> Click 'Add to Cart' -> Wait for Success Alert -> Click 'View Cart'"
+  ],
+  "assumptions": [
+    "Assuming exact match for 'MacBook' link is required to avoid clicking accessories.",
+    "Assuming success alert wait timeout should be less than 5000ms based on risk note."
+  ],
+  "warnings": [
+    "None. All selectors adhere strictly to policy and map to evidence."
+  ]
+}

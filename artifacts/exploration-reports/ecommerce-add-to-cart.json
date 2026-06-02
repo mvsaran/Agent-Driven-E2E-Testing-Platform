@@ -1,0 +1,65 @@
+{
+  "scope": "E-Commerce Add to Cart and Checkout Flow",
+  "urls": [
+    "https://ecommerce-playground.lambdatest.io/",
+    "https://ecommerce-playground.lambdatest.io/index.php?route=product/search&search=macbook",
+    "https://ecommerce-playground.lambdatest.io/index.php?route=product/product&product_id=43",
+    "https://ecommerce-playground.lambdatest.io/index.php?route=checkout/cart"
+  ],
+  "screens": [
+    "artifacts/exploration-reports/screenshots/home.png",
+    "artifacts/exploration-reports/screenshots/search_results.png",
+    "artifacts/exploration-reports/screenshots/product.png",
+    "artifacts/exploration-reports/screenshots/cart.png"
+  ],
+  "selectors": [
+    {
+      "source": "Search Input Field",
+      "locator": "Search For Products",
+      "type": "placeholder"
+    },
+    {
+      "source": "Search Submit Button",
+      "locator": "Search",
+      "type": "button"
+    },
+    {
+      "source": "Product Link (MacBook)",
+      "locator": "MacBook",
+      "type": "link"
+    },
+    {
+      "source": "Add to Cart Button",
+      "locator": "Add to Cart",
+      "type": "button"
+    },
+    {
+      "source": "Success Alert Notification",
+      "locator": "Success: You have added",
+      "type": "text"
+    },
+    {
+      "source": "View Cart Link",
+      "locator": "View Cart",
+      "type": "link"
+    },
+    {
+      "source": "Checkout Button",
+      "locator": "Checkout",
+      "type": "link"
+    }
+  ],
+  "networkCalls": [
+    "GET /index.php?route=product/search&search=macbook",
+    "POST /index.php?route=checkout/cart/add"
+  ],
+  "flows": [
+    "Navigate to Homepage -> Type 'macbook' in search -> Click Search -> Click 'MacBook' product -> Click 'Add to Cart' -> Wait for Success Alert -> Click 'View Cart'"
+  ],
+  "risks": [
+    "Success alert notification disappears after 5 seconds, requires fast assertion."
+  ],
+  "recommendations": [
+    "Use role locators for search button and product links for high stability."
+  ]
+}

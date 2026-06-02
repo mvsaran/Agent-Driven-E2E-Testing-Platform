@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["PASS", "FAIL"]
+    },
+    "passed": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "failed": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "screenshots": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "traceFiles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "logs": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["status", "passed", "failed", "screenshots", "traceFiles", "logs"]
+}

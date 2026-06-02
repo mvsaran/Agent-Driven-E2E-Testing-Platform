@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "scope": {
+      "type": "string",
+      "description": "The area explored"
+    },
+    "urls": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "screens": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "selectors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": { "type": "string" },
+          "locator": { "type": "string" },
+          "type": { "type": "string" }
+        },
+        "required": ["source", "locator", "type"]
+      }
+    },
+    "networkCalls": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "flows": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "risks": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["scope", "urls", "screens", "selectors", "networkCalls", "flows", "risks", "recommendations"]
+}

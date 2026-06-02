@@ -1,0 +1,62 @@
+name: Agent Playwright E2E
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  agent-test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+        
+    - name: Install dependencies
+      run: npm ci || npm install
+      
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+      
+    # Note: In a true agent pipeline, this is where the Explorer and Builder
+    # would execute to generate/update tests before running.
+    
+    - name: Run Runner Agent (Execute Playwright tests)
+      run: npx playwright test
+      
+    - name: Upload execution-report.json
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: execution-report
+        path: artifacts/execution-reports/playwright-report.json
+        retention-days: 14
+        
+    - name: Upload HTML report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-html-report
+        path: artifacts/execution-reports/html-report/
+        retention-days: 14
+
+    - name: Upload Failure Screenshots
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-screenshots
+        path: test-results/**/*.png
+        retention-days: 14
+
+    - name: Upload Trace Files
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-traces
+        path: test-results/**/*.zip
+        retention-days: 14
