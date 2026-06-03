@@ -353,24 +353,6 @@ This eliminates context loss between agent sessions.
 
 ---
 
-# 🎯 Success Criteria
-
-A feature is considered successfully automated only when:
-
-✅ Explored using live browser evidence
-
-✅ Converted into Playwright automation
-
-✅ Executed successfully
-
-✅ Validated through structured reports
-
-✅ Traceable to original evidence
-
-✅ No hallucinated selectors or assumptions exist anywhere in the workflow
-
----
-
 ### ⭐ Reliability Is a Feature
 
 This project is intentionally designed to constrain AI agents.
